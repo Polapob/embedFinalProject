@@ -1,0 +1,9 @@
+.ant-slider-track{
+    background-color: rgba(128, 0, 255, 1) !important ;
+}
+.ant-slider-hover{
+    background-color: rgba(128, 0, 255, 1) !important ;
+}
+.ant-slider-handle{
+    border-color: rgba(128, 0, 255, 1) !important ;
+}
