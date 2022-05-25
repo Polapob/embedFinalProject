@@ -13,6 +13,7 @@ const NormalMode: React.FC<{
   selectedState: number;
   handleOnClick: MouseEventHandler<HTMLDivElement>;
 }> = ({ disabled, handleOnClick, selectedState }) => {
+  console.log("re-render!");
   return (
     <Col
       span={11}

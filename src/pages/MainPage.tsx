@@ -1,6 +1,6 @@
 import "antd/dist/antd.min.css";
 import "./MainPage.css";
-import { Row } from "antd";
+import { Row, Modal, Typography } from "antd";
 import Header from "../components/MainPage/Header";
 import NormalMode from "../components/MainPage/NormalMode";
 import AutoMode from "../components/MainPage/AutoMode";
@@ -9,53 +9,84 @@ import { SwitchClickEventHandler } from "antd/lib/switch";
 
 const MainPage = () => {
   const [disabled, setDisabled] = useState<boolean>(true);
-  const [selectedState, setSelectedState] = useState<number>(0);
-  const [counter, setCounter] = useState<number>(3);
-  const [startCountDown, setStartCountDown] = useState<boolean>(false);
+  const [selectedState, setSelectedState] = useState<{
+    selectedState: number;
+    counter: number;
+    startCountDown: boolean;
+  }>({ selectedState: 0, counter: 3, startCountDown: false });
+
+  const [openModal, setOpenModal] = useState<boolean>(false);
+
+  const closeModal = () => {
+    setOpenModal(false);
+  };
 
   const toggleDisabled: SwitchClickEventHandler = () => {
-    setDisabled((prevValue) => !prevValue);
     if (disabled) {
-      setStartCountDown(true);
+      setSelectedState((prevState) => ({
+        ...prevState,
+        selectedState: 0,
+        startCountDown: true,
+        counter: 3,
+      }));
     }
+    setDisabled(!disabled);
   };
-  
+
   useEffect(() => {
-    if (startCountDown && counter > 0) {
-      setStartCountDown(true);
+    if (selectedState.startCountDown && selectedState.counter > 0) {
+      if (!selectedState.startCountDown) {
+        setSelectedState((prevState) => ({
+          ...prevState,
+          startCountDown: true,
+        }));
+      }
       const timer = setTimeout(() => {
-        setCounter((prevCounter) => {
-          if (prevCounter > 0) {
-            return prevCounter - 1;
+        setSelectedState((prevState) => {
+          if (prevState.counter > 0) {
+            return { ...prevState, counter: prevState.counter - 1 };
           }
-          return prevCounter;
+          return prevState;
         });
       }, 1000);
       return () => {
         clearTimeout(timer);
       };
-    } else if (startCountDown) {
-      setStartCountDown(false);
-      setCounter(3);
+    } else if (selectedState.startCountDown) {
+      setOpenModal(false);
+      setSelectedState((prevState) => ({
+        ...prevState,
+        counter: 3,
+        startCountDown: false,
+      }));
     }
-  }, [selectedState, counter, startCountDown]);
+  }, [selectedState.counter, selectedState.startCountDown]);
 
   const handleNormalModeClick: MouseEventHandler<HTMLDivElement> =
     useCallback(() => {
-      if (!disabled && !startCountDown) {
-        setSelectedState(0);
-        setStartCountDown(true);
+      if (!disabled && !selectedState.startCountDown) {
+        setSelectedState((prevState) =>
+          prevState.selectedState !== 0
+            ? { ...prevState, selectedState: 0, startCountDown: true }
+            : { ...prevState, startCountDown: false }
+        );
+      } else if (!disabled) {
+        setOpenModal(true);
       }
-    }, [disabled, startCountDown]);
-  console.log(counter, startCountDown);
+    }, [disabled, selectedState.startCountDown]);
+
   const handleAutoModeClick: MouseEventHandler<HTMLDivElement> =
     useCallback(() => {
-      if (!disabled && !startCountDown) {
-        setSelectedState(1);
-        setStartCountDown(true);
+      if (!disabled && !selectedState.startCountDown) {
+        setSelectedState((prevState) =>
+          prevState.selectedState !== 1
+            ? { ...prevState, selectedState: 1, startCountDown: true }
+            : { ...prevState, startCountDown: false }
+        );
+      } else if (!disabled) {
+        setOpenModal(true);
       }
-    }, [disabled, startCountDown]);
-
+    }, [disabled, selectedState.startCountDown]);
   return (
     <div className="mainBackground">
       <Header toggleDisabled={toggleDisabled} />
@@ -65,15 +96,27 @@ const MainPage = () => {
       >
         <NormalMode
           disabled={disabled}
-          selectedState={selectedState}
+          selectedState={selectedState.selectedState}
           handleOnClick={handleNormalModeClick}
         />
         <AutoMode
           disabled={disabled}
-          selectedState={selectedState}
+          selectedState={selectedState.selectedState}
           handleOnClick={handleAutoModeClick}
         />
       </Row>
+      <Modal
+        className="removeCancelButton"
+        title="Warning"
+        visible={openModal}
+        onOk={closeModal}
+        closable={false}
+        style={{ fontSize: "16px", fontWeight: "bold" }}
+      >
+        <Typography style={{ fontWeight: "bold", fontSize: "20px" }}>
+          You must Wait for {selectedState.counter} second to change Mode.
+        </Typography>
+      </Modal>
     </div>
   );
 };
