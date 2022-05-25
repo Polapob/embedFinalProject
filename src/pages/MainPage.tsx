@@ -13,7 +13,7 @@ const MainPage = () => {
     selectedState: number;
     counter: number;
     startCountDown: boolean;
-  }>({ selectedState: 0, counter: 3, startCountDown: false });
+  }>({ selectedState: 0, counter: 5, startCountDown: false });
 
   const [openModal, setOpenModal] = useState<boolean>(false);
 
@@ -27,7 +27,7 @@ const MainPage = () => {
         ...prevState,
         selectedState: 0,
         startCountDown: true,
-        counter: 3,
+        counter: 5,
       }));
     }
     setDisabled(!disabled);
@@ -56,7 +56,7 @@ const MainPage = () => {
       setOpenModal(false);
       setSelectedState((prevState) => ({
         ...prevState,
-        counter: 3,
+        counter: 5,
         startCountDown: false,
       }));
     }
