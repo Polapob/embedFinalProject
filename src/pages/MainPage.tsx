@@ -1,17 +1,15 @@
 import "antd/dist/antd.min.css";
 import "./MainPage.css";
-import { Row, Typography } from "antd";
+import { Row} from "antd";
 import Header from "../components/MainPage/Header";
 import NormalMode from "../components/MainPage/NormalMode";
 import AutoMode from "../components/MainPage/AutoMode";
 import { useState, MouseEventHandler, useCallback } from "react";
 import { SwitchClickEventHandler } from "antd/lib/switch";
-import GithubLogo from "../picture/GitHub.svg";
 
 const MainPage = () => {
   const [disabled, setDisabled] = useState<boolean>(true);
   const [selectedState, setSelectedState] = useState<number>(0);
-  const [color, setColor] = useState<string>("#b32aa9");
 
   const toggleDisabled: SwitchClickEventHandler = () => {
     setDisabled((prevValue) => !prevValue);
@@ -38,8 +36,6 @@ const MainPage = () => {
           disabled={disabled}
           selectedState={selectedState}
           handleOnClick={handleNormalModeClick}
-          color={color}
-          setColor={setColor}
         />
         <AutoMode
           disabled={disabled}
