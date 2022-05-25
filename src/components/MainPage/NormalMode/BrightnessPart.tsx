@@ -8,7 +8,6 @@ const BrightnessPart = () => {
   const handleBrightnessChange = (newValue: number) => {
     setBrightness(newValue);
   };
-  console.log("re-render!");
   return (
     <Fragment>
       <Title
