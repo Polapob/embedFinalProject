@@ -1,6 +1,6 @@
 import {Col,Typography} from "antd";
 
-const ColorDisplay = ()=>{
+const ColorDisplay:React.FC<{color:string}> = ({color})=>{
     return <Col span={21}>
             
     <div
@@ -17,7 +17,7 @@ const ColorDisplay = ()=>{
       <Typography
         style={{ fontSize: "32px", color: "white", fontWeight: "bold" }}
       >
-        #8000FF
+        {color}
       </Typography>
     </div>
   </Col>

@@ -1,9 +1,10 @@
-import { Fragment } from "react";
+import { Fragment,memo } from "react";
 import { Typography } from "antd";
+
 
 const { Title, Paragraph, Text } = Typography;
 
-const BrightnessPart = () => {
+const BrightnessPart:React.FC<{brightness:number}> = ({brightness}) => {
   return (
     <Fragment>
       <Title
@@ -31,7 +32,7 @@ const BrightnessPart = () => {
             fontWeight: "bold",
           }}
         >
-          69
+          {brightness || 69}
           <Text
             style={{
               color: "rgba(128, 0, 255, 1)",
@@ -47,4 +48,4 @@ const BrightnessPart = () => {
     </Fragment>
   );
 };
-export default BrightnessPart;
+export default memo(BrightnessPart);

@@ -3,12 +3,31 @@ import "./MainPage.css";
 import { Row, Modal, Typography } from "antd";
 import Header from "../components/MainPage/Header";
 import NormalMode from "../components/MainPage/NormalMode";
-import AutoMode from "../components/MainPage/AutoMode";
+import AutoMode, { ModeDataInterface } from "../components/MainPage/AutoMode";
 import { useState, MouseEventHandler, useCallback, useEffect } from "react";
 import { SwitchClickEventHandler } from "antd/lib/switch";
+import SwitchMode from "../utils/SwitchMode";
 
 const MainPage = () => {
   const [disabled, setDisabled] = useState<boolean>(true);
+
+  const [normalData, setNormalData] = useState<ModeDataInterface>({
+    mode: "normal",
+    color: "#b32aa9",
+    brightness: 50,
+  });
+
+  const handleDataChange = useCallback(
+    (mode: string, data: string | number) => {
+      if (mode === "color" && typeof data === "string") {
+        setNormalData((prevData) => ({ ...prevData, color: data }));
+      } else if (mode === "brightness" && typeof data === "number") {
+        setNormalData((prevData) => ({ ...prevData, brightness: data }));
+      }
+    },
+    []
+  );
+
   const [selectedState, setSelectedState] = useState<{
     selectedState: number;
     counter: number;
@@ -29,6 +48,8 @@ const MainPage = () => {
         startCountDown: true,
         counter: 5,
       }));
+    } else {
+      // turn off light //
     }
     setDisabled(!disabled);
   };
@@ -41,6 +62,7 @@ const MainPage = () => {
           startCountDown: true,
         }));
       }
+
       const timer = setTimeout(() => {
         setSelectedState((prevState) => {
           if (prevState.counter > 0) {
@@ -52,6 +74,7 @@ const MainPage = () => {
       return () => {
         clearTimeout(timer);
       };
+
     } else if (selectedState.startCountDown) {
       setOpenModal(false);
       setSelectedState((prevState) => ({
@@ -63,30 +86,39 @@ const MainPage = () => {
   }, [selectedState.counter, selectedState.startCountDown]);
 
   const handleNormalModeClick: MouseEventHandler<HTMLDivElement> =
-    useCallback(() => {
+    useCallback(async () => {
       if (!disabled && !selectedState.startCountDown) {
-        setSelectedState((prevState) =>
-          prevState.selectedState !== 0
-            ? { ...prevState, selectedState: 0, startCountDown: true }
-            : { ...prevState, startCountDown: false }
-        );
-      } else if (!disabled) {
+        setSelectedState((prevState) => ({
+          ...prevState,
+          selectedState: 0,
+          startCountDown: prevState.selectedState !== 0,
+        }));
+      } else if (!disabled && selectedState.selectedState === 1) {
         setOpenModal(true);
       }
-    }, [disabled, selectedState.startCountDown]);
+    }, [disabled, selectedState.startCountDown, selectedState.selectedState]);
 
   const handleAutoModeClick: MouseEventHandler<HTMLDivElement> =
-    useCallback(() => {
+    useCallback(async () => {
       if (!disabled && !selectedState.startCountDown) {
-        setSelectedState((prevState) =>
-          prevState.selectedState !== 1
-            ? { ...prevState, selectedState: 1, startCountDown: true }
-            : { ...prevState, startCountDown: false }
-        );
-      } else if (!disabled) {
+        if (selectedState.selectedState !== 1) {
+          const { errorMessage } = await SwitchMode({
+            brightness: 20,
+            mode: "auto",
+            color: "#FF00FF",
+          });
+        }
+
+        setSelectedState((prevState) => ({
+          ...prevState,
+          selectedState: 1,
+          startCountDown: prevState.selectedState !== 1,
+        }));
+        
+      } else if (!disabled && selectedState.selectedState === 0) {
         setOpenModal(true);
       }
-    }, [disabled, selectedState.startCountDown]);
+    }, [disabled, selectedState.startCountDown, selectedState.selectedState]);
   return (
     <div className="mainBackground">
       <Header toggleDisabled={toggleDisabled} />

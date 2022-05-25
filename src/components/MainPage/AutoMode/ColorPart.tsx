@@ -1,11 +1,21 @@
-import { Fragment } from "react";
+import { Fragment,memo } from "react";
 import ColorBox from "./ColorBox";
-import { Typography,Row } from "antd";
+import { Typography, Row } from "antd";
 import ColorDisplay from "./ColorDisplay";
 
-const {Title} = Typography;
+const { Title } = Typography;
 
-const ColorPart = () => {
+const preprocessColor = (colorHex: string) =>
+  colorHex?.length === 7
+    ? {
+        red: colorHex.slice(1, 3),
+        green: colorHex.slice(3, 5),
+        blue: colorHex.slice(5),
+      }
+    : { red: "80", blue: "00", green: "ff" };
+
+const ColorPart: React.FC<{ color: string }> = ({ color }) => {
+  const { red, green, blue } = preprocessColor(color);
   return (
     <Fragment>
       <Title
@@ -21,21 +31,21 @@ const ColorPart = () => {
         <ColorBox
           colorText="RED"
           borderColor="rgba(255, 0, 0, 1)"
-          colorCode="80"
+          colorCode={red}
         ></ColorBox>
         <ColorBox
           colorText="GREEN"
           borderColor="rgba(0, 255, 0, 1)"
-          colorCode="00"
+          colorCode={blue}
         />
         <ColorBox
           colorText="BLUE"
           borderColor="rgba(0, 0, 255, 1)"
-          colorCode="FF"
+          colorCode={green}
         />
-        <ColorDisplay />
+        <ColorDisplay color={ color || "#8000ff"} />
       </Row>
     </Fragment>
   );
 };
-export default ColorPart;
+export default memo(ColorPart);

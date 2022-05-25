@@ -1,16 +1,57 @@
 import { Col, Typography } from "antd";
-import { MouseEventHandler, memo } from "react";
+import {
+  MouseEventHandler,
+  memo,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
 import BrightnessPart from "./AutoMode/BrightnessPart";
 import ProjectLogo from "./AutoMode/ProjectLogo";
 import ColorPart from "./AutoMode/ColorPart";
+import FetchAutoModedata from "../../utils/FetchAutoModeData";
+import { clearInterval } from "timers";
 
 const { Title } = Typography;
+
+export interface ModeDataInterface {
+  mode: string;
+  brightness: number;
+  color: string;
+}
 
 const AutoMode: React.FC<{
   disabled: boolean;
   selectedState: number;
   handleOnClick: MouseEventHandler<HTMLDivElement>;
 }> = ({ disabled, selectedState, handleOnClick }) => {
+  const [counter, setCounter] = useState<number>(0);
+  const [autoModedata, setAutomodeData] = useState<ModeDataInterface>(
+    {} as ModeDataInterface
+  );
+  const fetchAutoModeData = useCallback(async () => {
+    if (!disabled && selectedState === 1) {
+      const { data, errorMessage } = await FetchAutoModedata();
+      setAutomodeData(data);
+    }
+  }, [disabled, selectedState]);
+
+  useEffect(() => {
+    if (!disabled && selectedState === 1 && counter === 0) {
+      fetchAutoModeData();
+      setCounter(10);
+    } else if (!disabled && selectedState === 1) {
+      const timer = setTimeout(() => {
+        console.log("run-this!");
+        setCounter(0);
+      }, 10000);
+      return () => {
+        clearTimeout(timer);
+      };
+    } else {
+      setCounter(0);
+    }
+  }, [disabled, selectedState, counter, fetchAutoModeData]);
   return (
     <Col span={11} style={{ width: "450px" }}>
       <div
@@ -40,8 +81,8 @@ const AutoMode: React.FC<{
         <Title level={4} style={{ textAlign: "center", marginTop: "0rem" }}>
           Automatically adjust upon currently outside theme
         </Title>
-        <BrightnessPart />
-        <ColorPart />
+        <BrightnessPart brightness={autoModedata.brightness} />
+        <ColorPart color={autoModedata.color} />
       </div>
       <ProjectLogo />
     </Col>

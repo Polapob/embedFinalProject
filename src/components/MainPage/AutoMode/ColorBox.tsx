@@ -18,7 +18,7 @@ const ColorBox:React.FC<{colorText:string,colorCode:string,borderColor:string}> 
         GREEN
       </Typography>
       <Typography style={{ fontWeight: "bold", fontSize: "32px" }}>
-        00
+          {colorCode}
       </Typography>
     </Col>
   );
