@@ -1,6 +1,7 @@
 import {memo} from "react";
 import { Typography } from "antd";
 import GithubLogo from "../../../picture/GitHub.svg";
+import "./ProjectLogo.css";
 
 const Projectname = () => {
   return (
@@ -16,7 +17,7 @@ const Projectname = () => {
         paddingRight: "0rem",
       }}
     >
-      <Typography style={{ fontSize: "18px", fontWeight: "bold" }}>
+      <Typography className="logoText" style={{ fontSize: "18px", fontWeight: "bold" }}>
         2110366 Embedded Sys Lab Project
       </Typography>
       <img src={GithubLogo} alt="Github Logo" />

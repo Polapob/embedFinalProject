@@ -21,14 +21,15 @@ const NormalMode: React.FC<{
 }) => {
   return (
     <Col
-      span={11}
+      xs = {21}
+      sm = {21}
+      md={11}
       style={{
         border: `${
           !disabled && selectedState === 0
             ? "5px solid #8000FF"
             : "5px solid rgb(255,255,255)"
         } `,
-        width: "450px",
         display: "flex",
         flexDirection: "column",
         justifyContent: "start",
@@ -37,16 +38,18 @@ const NormalMode: React.FC<{
         background: "rgb(255,255,255)",
         opacity: disabled ? 0.4 : selectedState === 0 ? 1 : 0.6,
         boxShadow: " 0px 0px 20px 1px rgba(0, 0, 0, 0.1)",
+        borderRadius:"0.75rem"
       }}
       onClick={handleOnClick}
     >
       <Title
+        className="NormalModeTitle"
         level={2}
         style={{ color: "rgba(128, 0, 255, 1)", marginBottom: "0rem" }}
       >
         Normal Mode
       </Title>
-      <Title level={4} style={{ marginTop: "0rem" }}>
+      <Title className="NormalModeDescription" level={4} style={{ marginTop: "0rem" }}>
         Manually adjust by yourself
       </Title>
       <BrightnessPart handleDataChange={handleDataChange} />
@@ -54,6 +57,7 @@ const NormalMode: React.FC<{
       <Button
         type="primary"
         size="large"
+        disabled = {disabled}
         style={{
           fontSize: "20px",
           fontWeight: "bold",

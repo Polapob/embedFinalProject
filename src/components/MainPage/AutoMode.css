@@ -1,0 +1,18 @@
+
+
+@media  (max-width:768px) {
+   .AutoModeContainer{
+       padding: 1.5rem 2rem !important;
+       
+   }
+}
+
+@media (max-width: 400px) {
+    .AutoModeDescription {
+        text-align: center;
+        font-size: 18px !important;
+      }
+    .AutoModeTitle{
+        font-size: 24px !important;
+    }
+}

@@ -1,37 +1,54 @@
-.verticalSwitch{
-    transform: rotate(270deg);   
+.verticalSwitch {
+  transform: rotate(270deg);
 }
-.ant-switch{
-    width:90px;
-    height:40px;
-    display:flex !important;
+
+
+html {
+  --antd-wave-shadow-color: rgba(128, 0, 255, 0.5) !important;
+}
+.ant-switch-checked {
+  background: rgba(128, 0, 255, 1) !important;
+}
+
+
+.ant-click-animating-node {
+  color: red !important;
+}
+
+.ant-slider-rail {
+  background-color: rgba(180, 180, 180, 0.3);
+}
+
+@media (min-width: 768px) {
+  .ant-switch {
+    width: 90px;
+    height: 40px;
+    display: flex !important;
     justify-content: center !important;
-    align-items:center !important;
-    
-}
-
-html{
-    --antd-wave-shadow-color:rgba(128, 0, 255, 0.5) !important;
-}
-.ant-switch-checked{
-    background:  rgba(128, 0, 255, 1) !important;
-}
-.ant-switch-checked .ant-switch-handle{
+    align-items: center !important;
+  }
+  .ant-switch-checked .ant-switch-handle {
     left: calc(100% - 38px) !important;
- 
-}
-
-.ant-switch-handle::before{
+  }
+  
+  .ant-switch-handle::before {
     padding: 1.1rem 1.1rem !important;
     border-radius: 100px !important;
-   
+  }
 }
 
-.ant-click-animating-node{
-    color: red !important;
+@media (max-width: 768px) {
+  .TitleHeader {
+    font-size: 48px !important;
+    margin-right: 0px;
+  }
 
 }
 
-.ant-slider-rail{
-    background-color: rgba(180,180,180,0.3);
+@media (max-width: 400px) {
+    .TitleHeader {
+        font-size: 32px !important;
+        margin-right: 0px;
+      }
+
 }

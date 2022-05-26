@@ -1,4 +1,5 @@
 import { Col, Typography } from "antd";
+import "./ColorBox.css";
 
 const ColorBox:React.FC<{colorText:string,colorCode:string,borderColor:string}> = ({colorText,colorCode,borderColor}) => {
   return (
@@ -11,13 +12,13 @@ const ColorBox:React.FC<{colorText:string,colorCode:string,borderColor:string}> 
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "column",
-        marginRight: "0.5rem",
       }}
+      className = "ColorBoxContainer"
     >
-      <Typography style={{ fontWeight: "bold", fontSize: "20px" }}>
-        GREEN
+      <Typography className="ColorBoxText" style={{ fontWeight: "bold", fontSize: "20px" }}>
+       {colorText}
       </Typography>
-      <Typography style={{ fontWeight: "bold", fontSize: "32px" }}>
+      <Typography className="ColorBoxText" style={{ fontWeight: "bold", fontSize: "32px" }}>
           {colorCode}
       </Typography>
     </Col>

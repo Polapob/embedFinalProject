@@ -1,9 +1,23 @@
-.ant-slider-track{
-    background-color: rgba(128, 0, 255, 1) !important ;
+.ant-slider-track {
+  background-color: rgba(128, 0, 255, 1) !important ;
 }
-.ant-slider-hover{
-    background-color: rgba(128, 0, 255, 1) !important ;
+.ant-slider-hover {
+  background-color: rgba(128, 0, 255, 1) !important ;
 }
-.ant-slider-handle{
-    border-color: rgba(128, 0, 255, 1) !important ;
+.ant-slider-handle {
+  border-color: rgba(128, 0, 255, 1) !important ;
+}
+
+@media (max-width: 400px) {
+  .NormalModeDescription {
+    text-align: center;
+    font-size: 18px !important;
+  }
+  .NormalModeTitle {
+    font-size: 24px !important;
+  }
+}
+
+.ant-btn:disabled {
+  color: white;
 }

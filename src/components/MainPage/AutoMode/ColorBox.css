@@ -1,0 +1,12 @@
+@media (max-width: 400px) {
+    .ColorBoxText {
+        font-size: 16px !important;
+        padding: 0px !important;
+      }
+    .ColorBoxContainer{
+        width: 75px !important;
+        height: 75px !important;
+    }
+    
+
+}

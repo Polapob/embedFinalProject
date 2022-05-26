@@ -21,6 +21,7 @@ const Header: React.FC<{ toggleDisabled:SwitchClickEventHandler  }> = ({toggleDi
         }}
       >
         <Title
+          className="TitleHeader"
           level={1}
           style={{
             fontSize: "64px",

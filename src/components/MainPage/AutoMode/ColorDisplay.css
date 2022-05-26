@@ -1,0 +1,22 @@
+@media (max-width: 400px) {
+    .ColorDisplayContainer{
+        width: 80% !important;
+    }
+    .ColorDisplayCode{
+        font-size: 28px !important;
+        
+    }
+}
+
+@media (min-width: 800px) {
+    .ColorDisplayContainer{
+        display: grid;
+        width: 100%;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+    .ColorDisplayCode{
+        font-size: 28px !important;
+        
+    }
+}

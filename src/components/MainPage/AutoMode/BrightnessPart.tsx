@@ -1,6 +1,6 @@
 import { Fragment,memo } from "react";
 import { Typography } from "antd";
-
+import "./BrightnessPart.css";
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -31,6 +31,7 @@ const BrightnessPart:React.FC<{brightness:number}> = ({brightness}) => {
             marginTop: "0rem",
             fontWeight: "bold",
           }}
+          className = "BrightnessNumber"
         >
           {brightness || 69}
           <Text

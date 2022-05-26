@@ -128,10 +128,12 @@ const MainPage = () => {
         setOpenModal(true);
       }
     }, [disabled, selectedState.startCountDown, selectedState.selectedState]);
+    
   return (
     <div className="mainBackground">
       <Header toggleDisabled={toggleDisabled} />
       <Row
+        className="MainGrid"
         justify="space-between"
         style={{ position: "relative", alignItems: "flex-start" }}
       >
