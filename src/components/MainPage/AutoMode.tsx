@@ -10,8 +10,7 @@ import BrightnessPart from "./AutoMode/BrightnessPart";
 import ProjectLogo from "./AutoMode/ProjectLogo";
 import ColorPart from "./AutoMode/ColorPart";
 import FetchAutoModedata from "../../utils/FetchAutoModeData";
-import { clearInterval } from "timers";
-import "./AutoMode.css"
+import "./AutoMode.css";
 const { Title } = Typography;
 
 export interface ModeDataInterface {
@@ -53,7 +52,7 @@ const AutoMode: React.FC<{
     }
   }, [disabled, selectedState, counter, fetchAutoModeData]);
   return (
-    <Col className="AutoModeGrid" xs = {21} sm = {21} md = {11} >
+    <Col className="AutoModeGrid" xs={21} sm={21} md={11}>
       <div
         className="AutoModeContainer"
         onClick={handleOnClick}
@@ -69,20 +68,24 @@ const AutoMode: React.FC<{
           padding: "0rem 2rem",
           alignItems: "center",
           background: "rgb(255,255,255)",
-          paddingTop:"1.5rem",
-          paddingBottom:"4.5rem",
+          paddingTop: "1.5rem",
+          paddingBottom: "4.5rem",
           opacity: disabled ? 0.4 : selectedState === 1 ? 1 : 0.6,
-          borderRadius:"0.75rem"
+          borderRadius: "0.75rem",
         }}
       >
         <Title
-           className="AutoModeTitle"
+          className="AutoModeTitle"
           level={2}
           style={{ color: "rgba(128, 0, 255, 1)", marginBottom: "0rem" }}
         >
           Auto Mode
         </Title>
-        <Title className="AutoModeDescription" level={4} style={{ textAlign: "center", marginTop: "0rem" }}>
+        <Title
+          className="AutoModeDescription"
+          level={4}
+          style={{ textAlign: "center", marginTop: "0rem" }}
+        >
           Automatically adjust upon currently outside theme
         </Title>
         <BrightnessPart brightness={autoModedata.brightness} />

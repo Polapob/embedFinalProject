@@ -2,6 +2,7 @@ import { Fragment,memo } from "react";
 import ColorBox from "./ColorBox";
 import { Typography, Row } from "antd";
 import ColorDisplay from "./ColorDisplay";
+import "./ColorPart.css";
 
 const { Title } = Typography;
 
@@ -27,7 +28,7 @@ const ColorPart: React.FC<{ color: string }> = ({ color }) => {
       >
         Color
       </Title>
-      <Row justify="center" style={{ width: "90%",columnGap:"0.5rem" }}>
+      <Row className="ColorPartGrid" justify="center" style={{ width: "90%",columnGap:"0.5rem" }}>
         <ColorBox
           colorText="RED"
           borderColor="rgba(255, 0, 0, 1)"

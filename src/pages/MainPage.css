@@ -18,7 +18,8 @@ html{
 
 
 
-@media  (max-width:768px) {
+@media  (max-width:767px) {
+    
     .MainGrid{
         justify-content: center;
         row-gap: 2rem !important;
@@ -35,6 +36,7 @@ html{
 .removeCancelButton .ant-btn-default{
     display: none !important;
 }
+
 .ant-modal-title{
     font-size: 20px;
     font-weight: bold;
