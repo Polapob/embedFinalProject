@@ -42,7 +42,7 @@ const AutoMode: React.FC<{
       setCounter(10);
     } else if (!disabled && selectedState === 1) {
       const timer = setTimeout(() => {
-        console.log("run-this!");
+        //console.log("run-this!");
         setCounter(0);
       }, 10000);
       return () => {

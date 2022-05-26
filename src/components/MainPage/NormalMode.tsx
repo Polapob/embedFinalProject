@@ -1,7 +1,5 @@
-import { Col, Slider, Typography } from "antd";
-import { Fragment, useState } from "react";
-import { HexColorPicker } from "react-colorful";
-import { MouseEventHandler, memo, Dispatch, SetStateAction } from "react";
+import { Button, Col, Typography } from "antd";
+import { MouseEventHandler, memo } from "react";
 import "./NormalMode.css";
 import BrightnessPart from "./NormalMode/BrightnessPart";
 import ColorPart from "./NormalMode/ColorPart";
@@ -12,8 +10,15 @@ const NormalMode: React.FC<{
   disabled: boolean;
   selectedState: number;
   handleOnClick: MouseEventHandler<HTMLDivElement>;
-}> = ({ disabled, handleOnClick, selectedState }) => {
-  console.log("re-render!");
+  handleDataChange: (mode: string, data: string | number) => void;
+  handleOnSave: MouseEventHandler<HTMLButtonElement>;
+}> = ({
+  disabled,
+  handleOnClick,
+  selectedState,
+  handleDataChange,
+  handleOnSave,
+}) => {
   return (
     <Col
       span={11}
@@ -44,8 +49,25 @@ const NormalMode: React.FC<{
       <Title level={4} style={{ marginTop: "0rem" }}>
         Manually adjust by yourself
       </Title>
-      <BrightnessPart />
-      <ColorPart />
+      <BrightnessPart handleDataChange={handleDataChange} />
+      <ColorPart handleDataChange={handleDataChange} />
+      <Button
+        type="primary"
+        size="large"
+        style={{
+          fontSize: "20px",
+          fontWeight: "bold",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          margin: "0.5rem 0rem",
+          backgroundColor: "rgba(128, 0, 255, 1)",
+          width: "80%",
+        }}
+        onClick={handleOnSave}
+      >
+        Save Setting
+      </Button>
     </Col>
   );
 };

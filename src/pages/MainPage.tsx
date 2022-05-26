@@ -28,6 +28,11 @@ const MainPage = () => {
     []
   );
 
+  const handleOnSave: MouseEventHandler<HTMLButtonElement> =
+    useCallback(async () => {
+      const { data, errorMessage } = await SwitchMode(normalData);
+    }, [normalData]);
+
   const [selectedState, setSelectedState] = useState<{
     selectedState: number;
     counter: number;
@@ -40,7 +45,7 @@ const MainPage = () => {
     setOpenModal(false);
   };
 
-  const toggleDisabled: SwitchClickEventHandler = () => {
+  const toggleDisabled: SwitchClickEventHandler = useCallback(async () => {
     if (disabled) {
       setSelectedState((prevState) => ({
         ...prevState,
@@ -48,11 +53,17 @@ const MainPage = () => {
         startCountDown: true,
         counter: 5,
       }));
+      console.log("Light is on");
     } else {
-      // turn off light //
+      const response = await SwitchMode({
+        mode: "off",
+        brightness: 0,
+        color: "#000000",
+      });
+      console.log("Light is off");
     }
     setDisabled(!disabled);
-  };
+  }, [disabled]);
 
   useEffect(() => {
     if (selectedState.startCountDown && selectedState.counter > 0) {
@@ -74,7 +85,6 @@ const MainPage = () => {
       return () => {
         clearTimeout(timer);
       };
-
     } else if (selectedState.startCountDown) {
       setOpenModal(false);
       setSelectedState((prevState) => ({
@@ -114,7 +124,6 @@ const MainPage = () => {
           selectedState: 1,
           startCountDown: prevState.selectedState !== 1,
         }));
-        
       } else if (!disabled && selectedState.selectedState === 0) {
         setOpenModal(true);
       }
@@ -130,6 +139,8 @@ const MainPage = () => {
           disabled={disabled}
           selectedState={selectedState.selectedState}
           handleOnClick={handleNormalModeClick}
+          handleDataChange={handleDataChange}
+          handleOnSave={handleOnSave}
         />
         <AutoMode
           disabled={disabled}

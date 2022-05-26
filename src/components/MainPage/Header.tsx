@@ -5,6 +5,7 @@ import "./Header.css";
 const { Title } = Typography;
 
 const Header: React.FC<{ toggleDisabled:SwitchClickEventHandler  }> = ({toggleDisabled}) => {
+
   return (
     <div
       style={{

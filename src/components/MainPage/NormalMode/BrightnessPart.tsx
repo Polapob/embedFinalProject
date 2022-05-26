@@ -1,13 +1,25 @@
-import { useState, memo, Fragment } from "react";
+import { useState, memo, Fragment, useEffect } from "react";
 import { Typography, Slider } from "antd";
 
 const { Title } = Typography;
 
-const BrightnessPart = () => {
+const BrightnessPart: React.FC<{
+  handleDataChange: (mode: string, data: string | number) => void;
+}> = ({ handleDataChange }) => {
   const [brightness, setBrightness] = useState<number>(50);
   const handleBrightnessChange = (newValue: number) => {
     setBrightness(newValue);
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      handleDataChange("brightness", brightness);
+    }, 1000);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [brightness, handleDataChange]);
+
   return (
     <Fragment>
       <Title
