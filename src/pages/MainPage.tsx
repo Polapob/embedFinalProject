@@ -10,7 +10,6 @@ import SwitchMode from "../utils/SwitchMode";
 
 const MainPage = () => {
   const [disabled, setDisabled] = useState<boolean>(true);
-
   const [normalData, setNormalData] = useState<ModeDataInterface>({
     mode: "normal",
     color: "#b32aa9",
@@ -45,8 +44,11 @@ const MainPage = () => {
     setOpenModal(false);
   };
 
+  console.log(disabled);
+
   const toggleDisabled: SwitchClickEventHandler = useCallback(async () => {
     if (disabled) {
+      setDisabled(!disabled);
       setSelectedState((prevState) => ({
         ...prevState,
         selectedState: 0,
@@ -55,6 +57,7 @@ const MainPage = () => {
       }));
       console.log("Light is on");
     } else {
+      setDisabled(!disabled);
       const response = await SwitchMode({
         mode: "off",
         brightness: 0,
@@ -62,7 +65,6 @@ const MainPage = () => {
       });
       console.log("Light is off");
     }
-    setDisabled(!disabled);
   }, [disabled]);
 
   useEffect(() => {
@@ -128,7 +130,7 @@ const MainPage = () => {
         setOpenModal(true);
       }
     }, [disabled, selectedState.startCountDown, selectedState.selectedState]);
-    
+
   return (
     <div className="mainBackground">
       <Header toggleDisabled={toggleDisabled} />
