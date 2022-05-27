@@ -13,7 +13,7 @@ const preprocessColor = (colorHex: string) =>
         green: colorHex.slice(3, 5),
         blue: colorHex.slice(5),
       }
-    : { red: "80", blue: "00", green: "ff" };
+    : { red: "80", green: "00", blue: "ff" };
 
 const ColorPart: React.FC<{ color: string }> = ({ color }) => {
   const { red, green, blue } = preprocessColor(color);
@@ -37,12 +37,12 @@ const ColorPart: React.FC<{ color: string }> = ({ color }) => {
         <ColorBox
           colorText="GREEN"
           borderColor="rgba(0, 255, 0, 1)"
-          colorCode={blue}
+          colorCode={green}
         />
         <ColorBox
           colorText="BLUE"
           borderColor="rgba(0, 0, 255, 1)"
-          colorCode={green}
+          colorCode={blue}
         />
         <ColorDisplay color={ color || "#8000ff"} />
       </Row>
