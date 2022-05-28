@@ -15,9 +15,6 @@ html{
     font-family: 'Inter';
 }
 
-
-
-
 @media  (max-width:767px) {
     
     .MainGrid{
@@ -30,8 +27,6 @@ html{
     }
 
 }
-
-
 
 .removeCancelButton .ant-btn-default{
     display: none !important;

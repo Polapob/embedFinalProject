@@ -7,7 +7,7 @@ const ColorDisplay: React.FC<{ color: string }> = ({ color }) => {
       <div
         className="ColorDisplayContainer"
         style={{
-          backgroundColor: "rgba(128, 0, 255, 1)",
+          backgroundColor: color,
           height: "60px",
           borderRadius: "0.25rem",
           justifyContent: "center",

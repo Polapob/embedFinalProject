@@ -1,12 +1,17 @@
 import "antd/dist/antd.min.css";
 import "./MainPage.css";
-import { Row, Modal, Typography } from "antd";
+import { Row, Modal, Typography, notification } from "antd";
 import Header from "../components/MainPage/Header";
 import NormalMode from "../components/MainPage/NormalMode";
 import AutoMode, { ModeDataInterface } from "../components/MainPage/AutoMode";
 import { useState, MouseEventHandler, useCallback, useEffect } from "react";
 import { SwitchClickEventHandler } from "antd/lib/switch";
 import SwitchMode from "../utils/SwitchMode";
+import { Notification } from "../components/MainPage/Notification";
+
+
+
+
 
 const MainPage = () => {
   const [disabled, setDisabled] = useState<boolean>(true);
@@ -29,7 +34,12 @@ const MainPage = () => {
 
   const handleOnSave: MouseEventHandler<HTMLButtonElement> =
     useCallback(async () => {
-      const { data, errorMessage } = await SwitchMode(normalData);
+      const { errorMessage } = await SwitchMode(normalData);
+      if (errorMessage === "") {
+        Notification(
+          "Error happened in Database Please try again later!"
+        );
+      }
     }, [normalData]);
 
   const [selectedState, setSelectedState] = useState<{
@@ -44,8 +54,6 @@ const MainPage = () => {
     setOpenModal(false);
   };
 
-  console.log(disabled);
-
   const toggleDisabled: SwitchClickEventHandler = useCallback(async () => {
     if (disabled) {
       setDisabled(!disabled);
@@ -55,15 +63,18 @@ const MainPage = () => {
         startCountDown: true,
         counter: 5,
       }));
-      console.log("Light is on");
     } else {
       setDisabled(!disabled);
-      const response = await SwitchMode({
+      const { errorMessage } = await SwitchMode({
         mode: "off",
         brightness: 0,
         color: "#000000",
       });
-      console.log("Light is off");
+      if (errorMessage !== "") {
+        Notification(
+          "Error happened in Database Please try again later!"
+        );
+      }
     }
   }, [disabled]);
 
@@ -113,19 +124,24 @@ const MainPage = () => {
   const handleAutoModeClick: MouseEventHandler<HTMLDivElement> =
     useCallback(async () => {
       if (!disabled && !selectedState.startCountDown) {
+        setSelectedState((prevState) => ({
+          ...prevState,
+          selectedState: 1,
+          startCountDown: prevState.selectedState !== 1,
+        }));
+
         if (selectedState.selectedState !== 1) {
           const { errorMessage } = await SwitchMode({
             brightness: 20,
             mode: "auto",
             color: "#FF00FF",
           });
+          if (errorMessage !== "") {
+            Notification(
+              "Error happened in Database Please try again later!"
+            );
+          }
         }
-
-        setSelectedState((prevState) => ({
-          ...prevState,
-          selectedState: 1,
-          startCountDown: prevState.selectedState !== 1,
-        }));
       } else if (!disabled && selectedState.selectedState === 0) {
         setOpenModal(true);
       }
@@ -158,7 +174,11 @@ const MainPage = () => {
         visible={openModal}
         onOk={closeModal}
         closable={false}
-        style={{ fontSize: "16px", fontWeight: "bold" }}
+        style={{
+          fontSize: "16px",
+          fontWeight: "bold",
+        }}
+        centered
       >
         <Typography style={{ fontWeight: "bold", fontSize: "20px" }}>
           You must Wait for {selectedState.counter} second to change Mode.

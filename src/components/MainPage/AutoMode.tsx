@@ -11,6 +11,7 @@ import ProjectLogo from "./AutoMode/ProjectLogo";
 import ColorPart from "./AutoMode/ColorPart";
 import FetchAutoModedata from "../../utils/FetchAutoModeData";
 import "./AutoMode.css";
+import { Notification } from "./Notification";
 const { Title } = Typography;
 
 export interface ModeDataInterface {
@@ -32,6 +33,11 @@ const AutoMode: React.FC<{
     if (!disabled && selectedState === 1) {
       const { data, errorMessage } = await FetchAutoModedata();
       setAutomodeData(data);
+      if (errorMessage !== "") {
+        Notification(
+          "Error happened in Database Please try again later!"
+        );
+      }
     }
   }, [disabled, selectedState]);
 

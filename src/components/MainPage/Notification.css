@@ -1,0 +1,9 @@
+.notification .ant-notification-notice-message {
+    font-size: 20px !important;
+    font-weight: bold;
+}
+
+.notification .ant-notification-notice-description{
+    font-size: 16px !important;
+    font-weight: bold;
+}
