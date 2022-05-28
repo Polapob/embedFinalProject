@@ -35,7 +35,7 @@ const MainPage = () => {
   const handleOnSave: MouseEventHandler<HTMLButtonElement> =
     useCallback(async () => {
       const { errorMessage } = await SwitchMode(normalData);
-      if (errorMessage === "") {
+      if (errorMessage !== "") {
         Notification(
           "Error happened in Database Please try again later!"
         );
