@@ -36,17 +36,20 @@
       "airbnb-typescript"
     ],
     "parserOptions": {
-      "project": ["./tsconfig.json"]
-      
+      "project": [
+        "./tsconfig.json"
+      ]
     },
     "rules": {
-      "react/function-component-definition": [ 2 , {
-        "namedComponents": "arrow-function",
-        "unnamedComponents": "arrow-function" 
+      "react/function-component-definition": [
+        2,
+        {
+          "namedComponents": "arrow-function",
+          "unnamedComponents": "arrow-function"
+        }
+      ]
     }
-  ]
-  }
-},
+  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -66,6 +69,7 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.5.0",
+    "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-prettier": "^4.0.0",
