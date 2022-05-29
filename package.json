@@ -10,6 +10,7 @@
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
+    "@typescript-eslint/parser": "^5.26.0",
     "antd": "^4.20.2",
     "axios": "^0.27.2",
     "mobx": "^6.5.0",
@@ -31,10 +32,21 @@
   },
   "eslintConfig": {
     "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
+      "airbnb",
+      "airbnb-typescript"
+    ],
+    "parserOptions": {
+      "project": ["./tsconfig.json"]
+      
+    },
+    "rules": {
+      "react/function-component-definition": [ 2 , {
+        "namedComponents": "arrow-function",
+        "unnamedComponents": "arrow-function" 
+    }
+  ]
+  }
+},
   "browserslist": {
     "production": [
       ">0.2%",
@@ -46,5 +58,19 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.26.0",
+    "eslint": "^8.16.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.30.0",
+    "install-peerdeps": "^3.0.3",
+    "prettier": "^2.6.2"
   }
 }

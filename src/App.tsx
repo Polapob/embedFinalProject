@@ -1,17 +1,10 @@
-import React, { Fragment } from 'react';
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
 import MainPage from './pages/MainPage';
 
-function App() {
-  return (
-    <Fragment>
-       <MainPage />
-    </Fragment>
-   
-    
+const App = () => (
+  <MainPage />
 
-  );
-}
+);
 
 export default App;

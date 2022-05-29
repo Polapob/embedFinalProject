@@ -1,11 +1,11 @@
-import { AxiosError } from "axios";
+import { AxiosError } from 'axios';
 
-const handleError = (err:unknown) => {
+const handleError = (err: unknown) => {
   const error = err as AxiosError;
 
   return {
     data: {},
-    statusCode: error.response? error.response.status : 500,
+    statusCode: error.response ? error.response.status : 500,
     errorMessage: error.message,
   };
 };
