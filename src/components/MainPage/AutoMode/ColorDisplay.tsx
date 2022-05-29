@@ -1,6 +1,7 @@
 import React from 'react';
 import { Col, Typography } from 'antd';
 import './ColorDisplay.css';
+import GetBrightnessFromColor from '../../../utils/GetBrightnessFromColor';
 
 interface Props {
   color: string;
@@ -29,7 +30,11 @@ const ColorDisplay: React.FC<Props> = ({ color }: Props) => (
       }}
     >
       <Typography
-        style={{ fontSize: '32px', color: 'white', fontWeight: 'bold' }}
+        style={{
+          fontSize: '32px',
+          color: GetBrightnessFromColor(color) > 0.5 ? 'black' : 'white',
+          fontWeight: 'bold',
+        }}
         className="ColorDisplayCode"
       >
         {color}
